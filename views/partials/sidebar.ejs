@@ -1,0 +1,13 @@
+<aside class="sidebar">
+  <div class="sidebar-nav">
+    <a href="/dashboard" class="sidebar-link <%= currentPath === '/dashboard' ? 'active' : '' %>">
+      <img src="/img/icon-dashboard.png" alt="Dashboard" class="sidebar-icon">
+      <span class="sidebar-text">Dashboard</span>
+    </a>
+    
+    <a href="/arsip" class="sidebar-link <%= currentPath && currentPath.startsWith('/arsip') ? 'active' : '' %>">
+      <img src="/img/icon-folder.png" alt="Folder" class="sidebar-icon">
+      <span class="sidebar-text">Folder Liputan</span>
+    </a>
+  </div>
+</aside>

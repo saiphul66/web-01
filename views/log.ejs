@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <% title = 'Log Kunjungan'; %>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="pixel">LOG KUNJUNGAN</h1>
+    <p class="lede">Waktu dalam WITA. Total: <%= total %> entri.</p>
+    <!-- Tambahkan navigasi admin di sini -->
+    <div style="margin-top: 16px;">
+      <a href="/dashboard?kunci=<%= process.env.KUNCI_LOG || '' %>" class="back">→ Buka Dasbor Admin</a>
+    </div>
+  </header>
+
+  <main>
+    <% if (entri.length === 0) { %>
+      <p class="empty">Belum ada kunjungan tercatat.</p>
+    <% } else { %>
+      <table class="tabel-log">
+        <thead>
+          <tr><th>Waktu (WITA)</th><th>Nama</th><th>Kelas</th></tr>
+        </thead>
+        <tbody>
+          <% entri.forEach(e => { %>
+            <tr>
+              <td><%= e.waktu %></td>
+              <td><%= e.nama %></td>
+              <td><%= e.kelas %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </main>
+
+  <footer class="site-footer">
+    <a href="/arsip">← Ke arsip</a>
+  </footer>
+</body>
+</html>

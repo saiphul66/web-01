@@ -1,0 +1,25 @@
+{
+  "folders": [
+    {
+      "slug": "contoh-liputan",
+      "judul": "Contoh Liputan",
+      "tanggal": "2025-01-15",
+      "deskripsi": "Folder contoh. Ganti isinya dengan liputanmu sendiri.",
+      "cover": "/foto/contoh-liputan/cover.svg",
+      "fotos": [
+        {
+          "slug": "foto-01",
+          "file": "/foto/contoh-liputan/foto-01.svg",
+          "judul": "Judul foto pertama",
+          "caption": "Keterangan foto: siapa, di mana, kapan, kenapa penting."
+        },
+        {
+          "slug": "foto-02",
+          "file": "/foto/contoh-liputan/foto-02.svg",
+          "judul": "Judul foto kedua",
+          "caption": "Keterangan foto kedua."
+        }
+      ]
+    }
+  ]
+}     

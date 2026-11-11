@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <% title = folder.judul; %>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <header class="site-header">
+    <a class="back" href="/">← Semua folder</a>
+    <h1 class="pixel"><%= folder.judul %></h1>
+    <p class="lede">
+      <% if (folder.tanggal) { %>
+        <time datetime="<%= folder.tanggal %>"><%= folder.tanggal %></time>
+      <% } %>
+      <% if (folder.deskripsi) { %> — <%= folder.deskripsi %><% } %>
+    </p>
+  </header>
+
+  <main>
+    <% if (folder.fotos.length === 0) { %>
+      <p class="empty">Belum ada foto di folder ini. Taruh file .jpg, .png, atau .webp di <code>public/foto/<%= folder.slug %>/</code>.</p>
+    <% } else { %>
+      <ul class="foto-grid">
+        <% folder.fotos.forEach((foto, i) => { %>
+          <li>
+            <div class="foto-card">
+              <a href="/folder/<%= folder.slug %>/<%= foto.slug %>" class="foto-link">
+                <img
+                  src="/foto/<%= folder.slug %>/<%= foto.fileTampil %>"
+                  alt="<%= foto.judul %>"
+                  width="480" height="320"
+                  loading="<%= i === 0 ? 'eager' : 'lazy' %>"
+                  <%= i === 0 ? 'fetchpriority="high"' : '' %>
+                >
+                <span class="foto-judul"><%= foto.judul %></span>
+              </a>
+              <!-- Tombol Download Mini mengarah ke file ASLI -->
+              <a href="/download/<%= folder.slug %>/<%= foto.fileAsli %>" class="btn-download-mini" title="Unduh Foto Asli" download>⬇</a>
+            </div>
+          </li>
+        <% }) %>
+      </ul>
+    <% } %>
+  </main>
+
+  <footer class="site-footer">
+    <a href="/">← Kembali ke semua folder</a>
+  </footer>
+</body>
+</html>

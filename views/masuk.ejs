@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <% title = 'Masuk ke Arsip'; %>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="pixel">ARSIP FOTO</h1>
+    <p class="lede">Isi nama dan kelas untuk melanjutkan. Isian bebas — tidak diverifikasi.</p>
+  </header>
+
+  <main class="gerbang">
+    <form method="POST" action="/masuk" class="form-gerbang">
+      <% if (error) { %>
+        <p class="form-error" role="alert"><%= error %></p>
+      <% } %>
+
+      <label for="nama">Nama</label>
+      <input type="text" id="nama" name="nama" value="<%= nilai.nama %>" required autocomplete="off" autofocus>
+
+      <label for="kelas">Kelas</label>
+      <input type="text" id="kelas" name="kelas" value="<%= nilai.kelas %>" required autocomplete="off">
+
+      <button type="submit">Masuk</button>
+    </form>
+  </main>
+</body>
+</html>

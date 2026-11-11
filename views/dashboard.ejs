@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <% title = 'Dasbor Jurnalistik'; %>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="pixel">DASBOR JURNALISTIK</h1>
+    <p class="lede">Sistem Monitoring & Riwayat Arsip.</p>
+  </header>
+
+  <main class="dashboard-grid">
+    
+    <!-- 1. SYSTEM MONITOR (Baris Atas Penuh) -->
+    <section class="panel panel-monitor">
+      <h2 class="panel-title">SYSTEM MONITOR</h2>
+      <div class="monitor-stats">
+        <div class="stat-item">
+          <span class="stat-label">CPU</span>
+          <span class="stat-value"><%= statistikSistem.cpu %>%</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">RAM</span>
+          <span class="stat-value"><%= statistikSistem.ramDigunakan %> / <%= statistikSistem.ramTotal %> GB</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">DISK</span>
+          <span class="stat-value"><%= statistikSistem.diskDigunakan %> / <%= statistikSistem.diskTotal %> GB</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. HISTORY & UPDATES (Kolom Kiri) -->
+    <section class="panel panel-history">
+      <h2 class="panel-title">HISTORY & UPDATES</h2>
+      <% if (historyList.length === 0) { %>
+        <p class="empty-text">Belum ada riwayat unggahan.</p>
+      <% } else { %>
+        <ul class="history-list">
+          <% historyList.forEach(item => { %>
+            <li>
+              <strong class="history-date"><%= item.tanggal %></strong>
+              <span class="history-detail"><%= item.detail %></span>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+    </section>
+
+    <!-- 3. MEMBER LIST (Kolom Kanan) -->
+    <section class="panel panel-member">
+      <h2 class="panel-title">MEMBER LIST</h2>
+      <% if (memberList.length === 0) { %>
+        <p class="empty-text">Belum ada kunjungan.</p>
+      <% } else { %>
+        <ul class="member-list">
+          <% memberList.forEach(m => { %>
+            <li>
+              <span class="member-name"><%= m.nama %></span>
+              <span class="member-kelas"><%= m.kelas %></span>
+              <span class="member-visit">Terakhir: <%= m.terakhirKunjungan.split(' ')[0] %></span>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+    </section>
+
+    <!-- 4. QUICK PREVIEW (Baris Bawah Kiri) -->
+    <section class="panel panel-preview">
+      <h2 class="panel-title">QUICK PREVIEW</h2>
+      <% if (liputanTerbaru) { %>
+        <div class="preview-card">
+          <% if (liputanTerbaru.cover) { %>
+            <img src="<%= liputanTerbaru.cover %>" alt="Cover" class="preview-img">
+          <% } %>
+          <div class="preview-info">
+            <h3 class="pixel"><%= liputanTerbaru.judul %></h3>
+            <p><%= liputanTerbaru.tanggal %></p>
+            <a href="/folder/<%= liputanTerbaru.slug %>" class="btn-view">Lihat Folder →</a>
+          </div>
+        </div>
+      <% } else { %>
+        <p class="empty-text">Belum ada liputan.</p>
+      <% } %>
+    </section>
+
+    <!-- 5. MEMBER MONITOR (Baris Bawah Kanan) -->
+    <section class="panel panel-monitor-stat">
+      <h2 class="panel-title">MEMBER MONITOR</h2>
+      <div class="monitor-stats vertical">
+        <div class="stat-item">
+          <span class="stat-label">Total Foto Tersimpan</span>
+          <span class="stat-value besar"><%= totalFoto %></span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">ARSIP DISK</span>
+          <span class="stat-value"><%= statistikSistem.diskDigunakan %> GB</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <a href="/arsip">← Ke arsip</a> | 
+    <a href="/log?kunci=<%= process.env.KUNCI_LOG || '' %>">Lihat Log Lengkap</a>
+  </footer>
+</body>
+</html>

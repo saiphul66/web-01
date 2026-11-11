@@ -1,0 +1,21 @@
+{
+  "name": "arsip-foto",
+  "version": "1.0.0",
+  "description": "Arsip hasil jurnalistik foto",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^18.0.10",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "os": "^0.1.2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

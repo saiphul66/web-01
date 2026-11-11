@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <% title = 'Arsip Foto'; %>
+  <%- include('partials/head') %>
+</head>
+<body class="layout-dengan-sidebar">
+  
+  <!-- Sidebar Kiri -->
+  <%- include('partials/sidebar') %>
+
+  <!-- Area Konten Utama -->
+  <div class="main-content">
+    <header class="site-header">
+      <h1 class="pixel">ARSIP FOTO</h1>
+      <p class="lede">Kumpulan hasil liputan, disusun per peristiwa.</p>
+    </header>
+
+    <main>
+      <% if (folders.length === 0) { %>
+        <p class="empty">
+          Belum ada liputan. Buat folder di <code>public/foto/</code>, taruh fotonya,
+          lalu tambahkan <code>_folder.txt</code> berisi judul, tanggal, dan deskripsi.
+        </p>
+      <% } else { %>
+        <ul class="folder-grid">
+          <% folders.forEach(folder => { %>
+            <li>
+              <a class="folder-card" href="/folder/<%= folder.slug %>">
+                <% if (folder.cover) { %>
+                  <img src="<%= folder.cover %>" alt="" width="480" height="320" loading="lazy">
+                <% } else { %>
+                  <div class="folder-kosong" aria-hidden="true">Belum ada foto</div>
+                <% } %>
+                <div class="folder-meta">
+                  <h2 class="pixel"><%= folder.judul %></h2>
+                  <% if (folder.tanggal) { %>
+                    <time datetime="<%= folder.tanggal %>"><%= folder.tanggal %></time>
+                  <% } %>
+                  <% if (folder.deskripsi) { %>
+                    <p><%= folder.deskripsi %></p>
+                  <% } %>
+                  <span class="folder-count"><%= folder.fotos.length %> foto</span>
+                </div>
+              </a>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+    </main>
+
+    <footer class="site-footer">
+      <p>Arsip pribadi. Semua foto © pemilik.</p>
+    </footer>
+  </div>
+
+</body>
+</html>

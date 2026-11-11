@@ -1,0 +1,927 @@
+:root {
+  /* Palet Warna Ceria (Hijau Daun & Cokelat Cerah) */
+  --base: #81c784;         /* Hijau daun cerah */
+  --surface: #a5d6a7;      /* Hijau daun terang untuk kartu/form */
+  --surface-alt: #c8e6c9;  /* Hijau sangat terang untuk variasi */
+  
+  --teks: #1b5e20;         /* Hijau sangat gelap (hampir hitam) untuk teks */
+  --teks-redup: #2e7d32;   /* Hijau gelap untuk teks sekunder */
+  
+  --aksen: #ff9800;        /* Oranye cerah (bata/koin) */
+  --aksen-teks: #3e2723;   /* Cokelat sangat gelap untuk teks di atas aksen */
+  
+  --border: #388e3c;       /* Hijau gelap untuk garis luar */
+  --border-terang: #66bb6a;/* Hijau sedang untuk garis luar */
+  --hitam: #3e2723;        /* Cokelat sangat gelap untuk hard shadow */
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  /* LATAR BELAKANG TANPA PENGELAPAN (OVERLAY DIHAPUS) */
+  background-image: url('/img/background.png');
+  background-size: cover;
+  background-position: center bottom;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-color: #87ceeb; /* Warna langit cadangan */
+  
+  color: var(--teks);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.6;
+  padding: 0 24px;
+  min-height: 100vh;
+  image-rendering: pixelated;
+}
+
+.pixel {
+  font-family: "Press Start 2P", monospace;
+  letter-spacing: 0;
+  line-height: 1.5;
+  font-weight: normal;
+}
+
+/* --- HEADER (Teks di atas background terang) --- */
+.site-header {
+  max-width: 1080px;
+  margin: 64px auto 48px;
+  background: transparent;
+  padding: 0;
+}
+
+/* Teks Header: Putih dengan Outline Cokelat Gelap */
+.site-header h1.pixel { 
+  font-size: 28px; 
+  margin: 0 0 16px; 
+  color: #ffffff; 
+  text-shadow: 
+    3px 3px 0 var(--hitam),
+    -3px -3px 0 var(--hitam),
+    3px -3px 0 var(--hitam),
+    -3px 3px 0 var(--hitam),
+    3px 0 0 var(--hitam),
+    -3px 0 0 var(--hitam),
+    0 3px 0 var(--hitam),
+    0 -3px 0 var(--hitam);
+}
+
+.site-header .lede { 
+  color: #ffffff; 
+  margin: 0; 
+  max-width: 60ch; 
+  font-size: 1.1rem;
+  font-weight: bold;
+  /* Bayangan teks tebal agar terbaca di langit biru */
+  text-shadow: 
+    2px 2px 0 var(--hitam),
+    -2px -2px 0 var(--hitam),
+    2px -2px 0 var(--hitam),
+    -2px 2px 0 var(--hitam);
+}
+
+main { max-width: 1080px; margin: 0 auto 96px; }
+
+/* Tombol Navigasi Kembali */
+.back {
+  display: inline-block;
+  color: var(--teks);
+  background: var(--surface);
+  padding: 8px 16px;
+  border: 3px solid var(--border);
+  text-decoration: none;
+  font-weight: bold;
+  margin-bottom: 24px;
+  box-shadow: 4px 4px 0 var(--hitam);
+  transition: transform 120ms, box-shadow 120ms, border-color 120ms;
+}
+.back:hover, .back:focus-visible { 
+  color: var(--aksen-teks); 
+  background: var(--aksen);
+  border-color: var(--aksen-teks);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--hitam);
+  outline: none;
+}
+
+/* --- KARTU FOLDER (Warna Cerah) --- */
+.folder-grid {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+}
+
+.folder-card {
+  display: block;
+  background: var(--surface); 
+  border: 4px solid var(--border);
+  box-shadow: 6px 6px 0 var(--hitam);
+  color: var(--teks);
+  text-decoration: none;
+  transition: transform 120ms, box-shadow 120ms, border-color 120ms;
+}
+
+.folder-card:hover, .folder-card:focus-visible {
+  border-color: var(--aksen);
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 var(--hitam);
+  outline: none;
+}
+
+.folder-card img { 
+  display: block; width: 100%; height: auto; 
+  aspect-ratio: 3 / 2; object-fit: cover;
+  border-bottom: 4px solid var(--border); 
+}
+
+.folder-kosong {
+  display: flex; align-items: center; justify-content: center;
+  aspect-ratio: 3 / 2;
+  background: var(--surface-alt); color: var(--teks-redup);
+  font-size: 0.85rem; border-bottom: 4px solid var(--border);
+}
+
+.folder-meta { padding: 20px; }
+.folder-meta h2 { color: var(--teks); }
+.folder-meta time { color: var(--teks-redup); font-size: 0.85rem; font-weight: bold; }
+.folder-meta p { margin: 12px 0; font-size: 0.95rem; }
+.folder-count { color: var(--teks-redup); font-size: 0.8rem; }
+
+/* --- GRID FOTO --- */
+.foto-grid {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+
+.foto-card {
+  display: block; position: relative;
+  border: 4px solid var(--border);
+  box-shadow: 4px 4px 0 var(--hitam);
+  text-decoration: none; color: var(--teks);
+  background: var(--surface);
+  transition: transform 120ms, box-shadow 120ms, border-color 120ms;
+}
+
+.foto-card:hover, .foto-card:focus-visible { 
+  border-color: var(--aksen); 
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--hitam);
+  outline: none; 
+}
+
+.foto-card img { 
+  display: block; width: 100%; height: auto; 
+  aspect-ratio: 3 / 2; object-fit: cover; 
+}
+
+.foto-judul {
+  display: block; padding: 12px; font-size: 0.85rem;
+  font-weight: bold;
+  background: var(--surface-alt); 
+  color: var(--teks);
+  border-top: 4px solid var(--border);
+}
+
+/* --- HALAMAN FOTO TUNGGAL --- */
+.foto-tunggal { 
+  max-width: 1000px; /* Lebarkan sedikit agar foto 16:9 atau 9:16 muat dengan baik */
+}
+
+.foto-wrapper {
+  position: relative;
+  background: var(--surface);
+  border: 4px solid var(--border);
+  box-shadow: 8px 8px 0 var(--hitam);
+  padding: 16px;
+}
+
+.foto-wrapper figure { 
+  margin: 0; 
+  display: flex;
+  justify-content: center;
+  background: var(--hitam); /* Latar hitam jika foto portrait (9:16) agar tidak aneh */
+}
+
+.foto-wrapper img { 
+  display: block; 
+  max-width: 100%;
+  max-height: 80vh; /* Jangan sampai foto terlalu tinggi melebihi layar */
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  /* aspect-ratio DIHAPUS agar mengikuti rasio asli foto */
+}
+
+.foto-wrapper figcaption {
+  margin-top: 24px; 
+  color: var(--teks); 
+  max-width: 65ch;
+  line-height: 1.7;
+  padding-bottom: 8px;
+}
+
+/* Aksi Bawah Foto (Tombol Download Besar) */
+.foto-aksi {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-download {
+  display: inline-block;
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  background: var(--surface);
+  color: var(--teks);
+  padding: 16px 24px;
+  text-decoration: none;
+  border: 4px solid var(--border);
+  box-shadow: 4px 4px 0 var(--hitam);
+  transition: transform 120ms, background 120ms;
+}
+
+.btn-download:hover {
+  background: var(--aksen);
+  color: var(--aksen-teks);
+  border-color: var(--hitam);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--hitam);
+}
+
+/* --- GRID FOTO (Tombol Download Mini) --- */
+.foto-card {
+  position: relative; /* Penting untuk posisi tombol mini */
+  /* ... (biarkan kode foto-card sebelumnya) ... */
+}
+
+.btn-download-mini {
+  position: absolute;
+  bottom: 45px; /* Ditaruh di atas judul */
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  color: var(--teks);
+  border: 3px solid var(--border);
+  box-shadow: 2px 2px 0 var(--hitam);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background 120ms, color 120ms;
+  z-index: 5;
+}
+
+.btn-download-mini:hover {
+  background: var(--aksen);
+  color: var(--aksen-teks);
+  border-color: var(--hitam);
+}
+
+/* Navigasi Overlay (Kiri Kanan) tetap sama seperti sebelumnya */
+.nav-overlay {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 64px;
+  background: var(--surface);
+  color: var(--teks);
+  border: 4px solid var(--border);
+  box-shadow: 4px 4px 0 var(--hitam);
+  text-decoration: none;
+  font-size: 24px;
+  font-family: "Press Start 2P", monospace;
+  z-index: 10;
+  transition: transform 120ms, background 120ms, color 120ms;
+}
+
+.nav-overlay:hover, .nav-overlay:focus-visible {
+  background: var(--aksen);
+  color: var(--aksen-teks);
+  border-color: var(--hitam);
+  transform: translateY(-50%) scale(1.05);
+  outline: none;
+}
+
+.nav-kiri { left: -24px; }
+.nav-kanan { right: -24px; }
+
+@media (max-width: 800px) {
+  .nav-kiri { left: 8px; }
+  .nav-kanan { right: 8px; }
+  .nav-overlay { width: 40px; height: 48px; font-size: 16px; }
+}
+
+.empty { 
+  color: var(--teks); 
+  background: var(--surface);
+  padding: 24px;
+  border: 4px solid var(--border);
+  box-shadow: 4px 4px 0 var(--hitam);
+  font-weight: bold;
+}
+
+.site-footer {
+  max-width: 1080px; margin: 0 auto;
+  padding: 24px 0 64px;
+  border-top: 4px solid var(--border);
+  color: var(--teks); 
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+}
+.site-footer a { 
+  color: var(--teks); 
+  text-decoration: none; 
+  border-bottom: 2px solid var(--border); 
+}
+.site-footer a:hover { color: var(--aksen-teks); border-bottom-color: var(--aksen-teks); }
+
+/* Fokus keyboard global */
+a:focus-visible, button:focus-visible, input:focus-visible { 
+  outline: 3px solid var(--aksen); 
+  outline-offset: 3px; 
+}
+
+/* --- GERBANG LOGIN --- */
+.gerbang { 
+  max-width: 460px; 
+  margin: 8vh auto; 
+}
+
+.form-gerbang {
+  display: flex; flex-direction: column; gap: 12px;
+  background: var(--surface);
+  border: 4px solid var(--border);
+  outline: 4px solid var(--hitam);
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.8);
+  padding: 32px;
+}
+
+.form-gerbang label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px; color: var(--teks); margin-top: 12px;
+}
+
+/* --- INFO FOTO DI HEADER --- */
+.foto-info {
+  margin-top: 16px;
+}
+.foto-posisi {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #ffffff;
+  background: var(--hitam);
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 0;
+}
+
+.form-gerbang input {
+  font: inherit; padding: 12px 16px;
+  background: #ffffff; color: var(--teks);
+  border: 3px solid var(--border);
+  transition: border-color 120ms;
+}
+.form-gerbang input:focus { outline: none; border-color: var(--aksen); }
+
+/* Tombol Muat HD */
+.btn-hd {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  background: #ffffff;
+  color: var(--hitam);
+  padding: 16px 24px;
+  margin-right: 16px;
+  border: 4px solid var(--border);
+  box-shadow: 4px 4px 0 var(--hitam);
+  cursor: pointer;
+  transition: transform 120ms, background 120ms;
+}
+
+.btn-hd:hover {
+  background: var(--surface-alt);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--hitam);
+}
+
+@media (max-width: 600px) {
+  .foto-aksi {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .btn-hd { margin-right: 0; }
+}
+
+/* --- DASBOR GRID --- */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas: 
+    "monitor monitor"
+    "history member"
+    "preview monitor-stat";
+  gap: 24px;
+  max-width: 1080px;
+  margin: 0 auto 64px;
+}
+
+/* Area Panel */
+.panel-monitor { grid-area: monitor; }
+.panel-history { grid-area: history; }
+.panel-member { grid-area: member; }
+.panel-preview { grid-area: preview; }
+.panel-monitor-stat { grid-area: monitor-stat; }
+
+/* Gaya Dasar Panel Retro */
+.panel {
+  background: var(--surface);
+  border: 4px solid var(--border);
+  box-shadow: 6px 6px 0 var(--hitam);
+  padding: 20px;
+}
+
+.panel-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  color: var(--aksen-teks);
+  background: var(--aksen);
+  padding: 8px 12px;
+  margin: -20px -20px 20px -20px; /* Menempel ke tepi atas panel */
+  border-bottom: 4px solid var(--border);
+  text-shadow: none;
+}
+
+/* System Monitor */
+.monitor-stats {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.monitor-stats.vertical {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.stat-label {
+  font-weight: bold;
+  font-size: 0.85rem;
+  color: var(--teks-redup);
+}
+.stat-value {
+  font-family: "Press Start 2P", monospace;
+  font-size: 14px;
+  color: var(--teks);
+}
+.stat-value.besar {
+  font-size: 24px;
+  color: var(--aksen-teks);
+}
+
+/* History List */
+.history-list {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.history-list li {
+  border-bottom: 2px dashed var(--border);
+  padding-bottom: 12px;
+}
+.history-date {
+  display: block;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: var(--aksen-teks);
+  margin-bottom: 4px;
+}
+.history-detail {
+  font-size: 0.9rem;
+  color: var(--teks);
+}
+
+/* Member List */
+.member-list {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.member-list li {
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--surface-alt);
+  padding: 8px 12px;
+  border: 2px solid var(--border);
+}
+.member-name { font-weight: bold; color: var(--teks); }
+.member-kelas { font-size: 0.8rem; color: var(--teks-redup); }
+.member-visit { font-size: 0.75rem; color: var(--teks-redup); }
+
+/* Quick Preview */
+.preview-card {
+  display: flex; gap: 16px; align-items: center;
+}
+.preview-img {
+  width: 100px; height: 100px;
+  object-fit: cover;
+  border: 3px solid var(--border);
+}
+.preview-info h3 {
+  font-size: 14px; margin: 0 0 8px;
+  color: var(--teks);
+}
+.preview-info p {
+  font-size: 0.85rem; color: var(--teks-redup); margin: 0 0 12px;
+}
+.btn-view {
+  display: inline-block;
+  background: var(--aksen); color: var(--aksen-teks);
+  padding: 6px 12px;
+  text-decoration: none; font-weight: bold;
+  border: 2px solid var(--hitam);
+  font-size: 0.85rem;
+}
+.empty-text { font-style: italic; color: var(--teks-redup); }
+
+/* Responsif */
+@media (max-width: 800px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "monitor"
+      "history"
+      "member"
+      "preview"
+      "monitor-stat";
+  }
+  .monitor-stats { flex-direction: column; align-items: flex-start; gap: 16px; }
+}
+
+/* --- SIDEBAR --- */
+:root {
+  --sidebar-bg: #9ccf8a;      /* hijau rumput muda */
+  --sidebar-krem: #f4ecd6;    /* tetap dipakai untuk teks item aktif */
+  --sidebar-mini: 64px;
+  --sidebar-lebar: 240px;
+}
+
+body.layout-dengan-sidebar {
+  display: flex;
+  padding-left: 0;           /* sidebar fixed, tidak butuh padding kiri */
+}
+
+.sidebar {
+  position: fixed;
+  left: 0; top: 0;
+  width: var(--sidebar-mini);
+  height: 100vh;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  padding: 56px 2px;      /* sebelumnya 28px 8px: atas lebih turun, tepi kiri lebih rapat */
+  background: var(--sidebar-bg);     /* sebelumnya var(--sidebar-krem) */
+  /* garis cokelat luar + garis hijau rumput di dalam */
+  border-right: 4px solid var(--hitam);
+  box-shadow: inset -4px 0 0 var(--border), 6px 0 0 rgba(62, 39, 35, 0.2);
+  overflow: hidden;
+  transition: width 220ms cubic-bezier(.4, 0, .2, 1);
+}
+
+/* Strip tanah di dasar sidebar, menyambung dengan tanah di background */
+.sidebar::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 48px;
+  background: #7f5233;
+  border-top: 6px solid var(--border);
+  pointer-events: none;
+}
+
+/* Melebar menimpa konten (overlay), konten tidak bergeser */
+.sidebar:hover,
+.sidebar:focus-within {
+  width: var(--sidebar-lebar);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding: 0;
+}
+
+.sidebar-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 52px;
+  padding: 0 0 0 5px;     /* sebelumnya 0 0 0 14px, ikon sekarang ±16px dari tepi kiri */
+  color: var(--hitam);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  border: 0;
+  transition: background 140ms, color 140ms;
+}
+
+.sidebar-link:hover,
+.sidebar-link:focus-visible {
+  background: rgba(255, 255, 255, 0.32);
+  outline: none;
+}
+
+/* Aktif: blok cokelat seperti tanah di bawah background + penanda oranye */
+.sidebar-link.active {
+  background: var(--hitam);
+  color: var(--sidebar-krem);
+  box-shadow: inset 4px 0 0 var(--aksen);
+}
+.sidebar-link.active .sidebar-icon {
+  filter: invert(1);         /* ikon hitam jadi krem */
+}
+
+.sidebar-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.sidebar-text {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  letter-spacing: 0;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 160ms, transform 200ms;
+}
+
+.sidebar:hover .sidebar-text,
+.sidebar:focus-within .sidebar-text {
+  opacity: 1;
+  transform: none;
+  transition-delay: 70ms;    /* teks muncul setelah panel hampir lebar */
+}
+
+/* Area Konten Utama */
+.main-content {
+  flex: 1;
+  min-width: 0;
+  margin-left: var(--sidebar-mini);
+  padding: 0 32px;
+  overflow-x: hidden;
+}
+
+/* --- HP: sidebar jadi dock bawah --- */
+@media (max-width: 800px) {
+  body.layout-dengan-sidebar { flex-direction: column; }
+
+  .sidebar,
+  .sidebar:hover,
+  .sidebar:focus-within {
+    width: 100%;
+    height: 68px;
+    top: auto; bottom: 0;
+    flex-direction: row;
+    padding: 6px 12px;
+    border-right: 0;
+    border-top: 4px solid var(--hitam);
+    box-shadow: inset 0 4px 0 var(--border);
+    transition: none;
+    overflow: hidden;
+  }
+
+  .sidebar::after { display: none; }
+
+  .sidebar-nav {
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 8px;
+  }
+
+  .sidebar-link {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    height: 100%;
+    padding: 0;
+  }
+
+  .sidebar-text {
+    opacity: 1;
+    transform: none;
+    font-size: 7px;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 0 16px 88px;
+  }
+}
+
+/* --- SIDEBAR LAYOUT (Sesuai Referensi) --- */
+.layout-dengan-sidebar {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 64px; /* Lebar minimalis hanya untuk ikon */
+  background: #9ccf8a;
+  border-right: 3px solid var(--border); /* Garis batas piksel tegas */
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  padding-top: 24px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  /* Transisi ringan saat melebar */
+  transition: width 200ms ease;
+  overflow: hidden;
+}
+
+/* Efek Hover: Sidebar melebar ke kanan */
+.sidebar:hover {
+  width: 200px;
+  align-items: flex-start;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  padding: 0 8px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  text-decoration: none;
+  color: #000000; /* Teks hitam */
+  font-weight: bold;
+  white-space: nowrap;
+  border-radius: 0; /* Kotak tajam khas pixel */
+  border: 2px solid transparent;
+  transition: background 120ms;
+}
+
+/* Sorotan transparan sederhana saat di-hover (sesuai instruksi) */
+.sidebar-link:hover,
+.sidebar-link.active {
+  background: rgba(0, 0, 0, 0.08); /* Kotak transparan sederhana */
+}
+
+.sidebar-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  image-rendering: pixelated; /* Menjaga ketajaman ikon */
+  flex-shrink: 0;
+}
+
+/* Teks default disembunyikan */
+.sidebar-text {
+  opacity: 0;
+  transition: opacity 200ms ease;
+  font-size: 0.9rem;
+}
+
+/* Teks muncul saat sidebar di-hover */
+.sidebar:hover .sidebar-text {
+  opacity: 1;
+}
+
+/* Area Konten Utama */
+.main-content {
+  flex: 1;
+  padding: 0 32px;
+  margin-left: 64px; /* Memberi ruang agar tidak tertutup sidebar */
+  overflow-x: hidden;
+}
+
+/* --- RESPONSIF (Tampilan HP) --- */
+@media (max-width: 800px) {
+  .layout-dengan-sidebar {
+    flex-direction: column;
+  }
+  
+  /* Sidebar berubah jadi dock di bawah pada HP */
+  .sidebar {
+    width: 100%;
+    height: 64px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    top: auto;
+    flex-direction: row;
+    padding: 0;
+    border-right: none;
+    border-top: 3px solid var(--border);
+  }
+  
+  .sidebar:hover {
+    width: 100%;
+  }
+  
+  .sidebar-nav {
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0;
+  }
+  
+  .sidebar-link {
+    padding: 12px;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .sidebar-text {
+    opacity: 1; /* Di HP, teks selalu muncul */
+    font-size: 0.75rem;
+  }
+  
+  .main-content {
+    margin-left: 0;
+    padding: 0 16px 80px 16px; /* Padding bawah untuk memberi ruang dock */
+  }
+}
+
+.form-gerbang button {
+  font-family: "Press Start 2P", monospace;
+  font-size: 14px; margin-top: 24px; padding: 16px;
+  background: var(--aksen); color: var(--aksen-teks);
+  border: 3px solid var(--hitam);
+  box-shadow: 4px 4px 0 var(--hitam);
+  cursor: pointer;
+  transition: transform 80ms, box-shadow 80ms;
+}
+
+.form-gerbang button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--hitam);
+}
+.form-gerbang button:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--hitam);
+}
+
+.form-error {
+  color: #ffffff;
+  background: #d32f2f; /* Merah tegas untuk error */
+  border-left: 4px solid var(--hitam);
+  padding-left: 16px; margin: 0 0 12px;
+  padding: 12px 16px;
+  font-weight: bold;
+}
+
+/* --- TABEL LOG --- */
+.tabel-log {
+  width: 100%; border-collapse: collapse; font-size: 0.9rem;
+  box-shadow: 6px 6px 0 var(--hitam);
+  border: 4px solid var(--border);
+  background: var(--surface);
+}
+.tabel-log th, .tabel-log td {
+  text-align: left; padding: 12px 16px;
+  border-bottom: 3px solid var(--border);
+  vertical-align: top;
+}
+.tabel-log th {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px; color: var(--aksen-teks);
+  background: var(--aksen);
+  border-bottom-color: var(--hitam);
+}
+.tabel-log tr:last-child td { border-bottom: none; }
+
+@media (max-width: 800px) {
+  .folder-grid { grid-template-columns: repeat(2, 1fr); }
+  .foto-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+  body { padding: 0 16px; }
+  .folder-grid, .foto-grid { grid-template-columns: 1fr; }
+  .site-header h1.pixel { font-size: 20px; }
+  .gerbang { margin: 4vh auto; }
+}

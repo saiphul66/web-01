@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <% title = foto.judul + ' — ' + folder.judul; %>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <header class="site-header">
+    <a class="back" href="/folder/<%= folder.slug %>">← <%= folder.judul %></a>
+    <div class="foto-info">
+      <h1 class="pixel"><%= foto.judul %></h1>
+      <p class="foto-posisi">Foto <%= posisiSekarang %> dari <%= totalFoto %></p>
+    </div>
+  </header>
+
+  <main class="foto-tunggal">
+    <div class="foto-wrapper">
+      <% if (sebelumnya) { %>
+        <a href="/folder/<%= folder.slug %>/<%= sebelumnya.slug %>" rel="prev" id="link-prev" class="nav-overlay nav-kiri" title="Foto Sebelumnya">←</a>
+      <% } %>
+
+      <figure>
+        <img
+          id="gambar-utama"
+          src="/foto/<%= folder.slug %>/<%= foto.fileTampil %>"
+          alt="<%= foto.judul %>"
+          width="1200" height="800"
+          fetchpriority="high"
+        >
+      </figure>
+
+      <% if (berikutnya) { %>
+        <a href="/folder/<%= folder.slug %>/<%= berikutnya.slug %>" rel="next" id="link-next" class="nav-overlay nav-kanan" title="Foto Berikutnya">→</a>
+      <% } %>
+    </div>
+
+    <div class="foto-aksi">
+      <% if (!preferensiHd && foto.fileTampil !== foto.fileAsli) { %>
+        <button id="btn-muat-hd" class="btn-hd" 
+                data-folder="<%= folder.slug %>" 
+                data-file-asli="<%= foto.fileAsli %>">
+          Muat Versi HD
+        </button>
+      <% } %>
+      
+      <a href="/download/<%= folder.slug %>/<%= foto.fileAsli %>" class="btn-download" download>⬇ Unduh Foto Asli (<%= foto.fileAsli.split('.').pop().toUpperCase() %>)</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <a href="/">← Semua folder</a>
+  </footer>
+
+  <script>
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        const prev = document.getElementById('link-prev');
+        if (prev) prev.click();
+      } else if (e.key === 'ArrowRight') {
+        const next = document.getElementById('link-next');
+        if (next) next.click();
+      }
+    });
+
+    const btnHd = document.getElementById('btn-muat-hd');
+    if (btnHd) {
+      btnHd.addEventListener('click', async function() {
+        const folderSlug = this.getAttribute('data-folder');
+        const fileAsli = this.getAttribute('data-file-asli');
+        const img = document.getElementById('gambar-utama');
+
+        // Paksa ganti sumber gambar ke resolusi asli dan bypass cache
+        img.src = `/foto/${folderSlug}/${fileAsli}?v=hd`;
+        
+        // Sembunyikan tombol karena sudah HD
+        this.style.display = 'none';
+
+        // Simpan preferensi ke cookie
+        try {
+          await fetch('/api/preferensi-hd', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'hd=1'
+          });
+        } catch (err) {
+          console.error('Gagal menyimpan preferensi', err);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

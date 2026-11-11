@@ -1,0 +1,217 @@
+/* Desain mengikuti DESIGN.md. Jangan tambah gradient, glow, atau pill tanpa alasan. */
+
+:root {
+  --base: #1a1420;
+  --surface: #2a2030;
+  --teks: #f0e6d2;
+  --teks-redup: #b8a890;
+  --aksen: #e8a33d;
+  --border: #3d3048;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--base);
+  color: var(--teks);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.6;
+  padding: 0 24px;
+}
+
+/* Gerbang nama */
+.gerbang { max-width: 420px; }
+
+.form-gerbang {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  padding: 24px;
+}
+
+.form-gerbang label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: var(--teks-redup);
+  margin-top: 8px;
+}
+
+.form-gerbang input {
+  font: inherit;
+  padding: 10px 12px;
+  background: var(--base);
+  color: var(--teks);
+  border: 2px solid var(--border);
+}
+.form-gerbang input:focus-visible {
+  outline: none;
+  border-color: var(--aksen);
+}
+
+.form-gerbang button {
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  margin-top: 16px;
+  padding: 14px;
+  background: var(--surface);
+  color: var(--teks);
+  border: 2px solid var(--border);
+  cursor: pointer;
+  transition: border-color 120ms, color 120ms;
+}
+.form-gerbang button:hover,
+.form-gerbang button:focus-visible {
+  border-color: var(--aksen);
+  color: var(--aksen);
+}
+
+.form-error {
+  color: var(--aksen);
+  border-left: 3px solid var(--aksen);
+  padding-left: 12px;
+  margin: 0 0 8px;
+}
+
+/* Tabel log */
+.tabel-log {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.tabel-log th, .tabel-log td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--border);
+  vertical-align: top;
+}
+.tabel-log th {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: var(--teks-redup);
+  border-bottom-color: var(--aksen);
+}
+
+/* Font pixel hanya untuk heading. Ditambah fallback agar tetap terbaca */
+.pixel {
+  font-family: "Press Start 2P", monospace;
+  letter-spacing: 0;
+  line-height: 1.5;
+}
+
+h1.pixel { font-size: 20px; margin: 0 0 8px; }
+h2.pixel { font-size: 12px; margin: 0 0 4px; }
+
+.site-header {
+  max-width: 1080px;
+  margin: 64px auto 48px;
+}
+
+.lede { color: var(--teks-redup); margin: 0; max-width: 60ch; }
+
+main { max-width: 1080px; margin: 0 auto 96px; }
+
+.back {
+  display: inline-block;
+  color: var(--teks-redup);
+  text-decoration: none;
+  margin-bottom: 16px;
+  border-bottom: 2px solid transparent;
+}
+.back:hover, .back:focus-visible { color: var(--aksen); border-bottom-color: var(--aksen); }
+
+/* Grid folder */
+.folder-grid {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+
+.folder-card {
+  display: block;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 120ms;
+}
+.folder-card:hover, .folder-card:focus-visible {
+  border-color: var(--aksen);
+  outline: none;
+}
+.folder-card img { display: block; width: 100%; height: auto; border-bottom: 2px solid var(--border); }
+.folder-meta { padding: 16px; }
+.folder-meta time { color: var(--teks-redup); font-size: 0.85rem; }
+.folder-meta p { margin: 8px 0; font-size: 0.95rem; }
+.folder-count { color: var(--teks-redup); font-size: 0.8rem; }
+
+/* Grid foto */
+.foto-grid {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+}
+.foto-card {
+  display: block; position: relative;
+  border: 2px solid var(--border);
+  text-decoration: none; color: inherit;
+  transition: border-color 120ms;
+}
+.foto-card:hover, .foto-card:focus-visible { border-color: var(--aksen); outline: none; }
+.foto-card img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.foto-judul {
+  display: block; padding: 8px 10px; font-size: 0.85rem;
+  background: var(--surface); border-top: 2px solid var(--border);
+}
+
+/* Halaman satu foto */
+.foto-tunggal { max-width: 900px; }
+.foto-tunggal figure { margin: 0; }
+.foto-tunggal img { display: block; width: 100%; height: auto; border: 2px solid var(--border); }
+.foto-tunggal figcaption {
+  margin-top: 16px; color: var(--teks-redup); max-width: 65ch;
+}
+
+.foto-nav {
+  display: flex; justify-content: space-between;
+  margin-top: 32px; padding-top: 24px;
+  border-top: 2px solid var(--border);
+}
+.foto-nav a { color: var(--teks); text-decoration: none; border-bottom: 2px solid var(--border); }
+.foto-nav a:hover, .foto-nav a:focus-visible { color: var(--aksen); border-bottom-color: var(--aksen); }
+.foto-nav .disabled { color: var(--teks-redup); opacity: 0.5; }
+
+.empty { color: var(--teks-redup); }
+
+.folder-kosong {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 3 / 2;
+  background: var(--base);
+  color: var(--teks-redup);
+  font-size: 0.85rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.site-footer {
+  max-width: 1080px; margin: 0 auto;
+  padding: 32px 0 64px;
+  border-top: 2px solid var(--border);
+  color: var(--teks-redup); font-size: 0.85rem;
+}
+.site-footer a { color: var(--teks-redup); }
+
+/* Fokus keyboard konsisten */
+a:focus-visible { outline: 2px solid var(--aksen); outline-offset: 2px; }
+
+/* Breakpoint */
+@media (max-width: 800px) {
+  .folder-grid { grid-template-columns: repeat(2, 1fr); }
+  .foto-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+  body { padding: 0 16px; }
+  .folder-grid, .foto-grid { grid-template-columns: 1fr; }
+  h1.pixel { font-size: 16px; }
+}

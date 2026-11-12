@@ -11,8 +11,7 @@
     "cookie-parser": "^1.4.7",
     "dotenv": "^18.0.10",
     "ejs": "^3.1.10",
-    "express": "^4.19.2",
-    "os": "^0.1.2"
+    "express": "^4.19.2"
   },
   "keywords": [],
   "author": "",

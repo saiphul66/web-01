@@ -186,9 +186,12 @@ function bacaSemuaFolder() {
 }
 
 function catatKunjungan(nama, kelas) {
-  fs.mkdirSync(path.dirname(LOG_FILE), { recursive: true });
   const entri = JSON.stringify({ waktu: waktuWITA(), nama, kelas });
-  fs.appendFileSync(LOG_FILE, entri + '\n', 'utf8');
+  try {
+    fs.appendFileSync(LOG_FILE, entri + '\n', 'utf8');
+  } catch (err) {
+    console.error('Gagal menulis log:', err.message);
+  }
 }
 
 function bacaLog() {
@@ -360,6 +363,9 @@ app.use((req, res) => {
   res.status(404).render('404');
 });
 
-app.listen(PORT, () => {
-  console.log(`Server jalan di http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server jalan di http://localhost:${PORT}`);
+  });
+}
+module.exports = app;
